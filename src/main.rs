@@ -1,6 +1,8 @@
 use image::{GrayImage, Luma};
 use rayon::iter::{IntoParallelIterator, ParallelIterator};
 
+use vm_parser::vm_execute;
+
 #[derive(Debug)]
 struct Program {
     instrs: Vec<Instruction>,
@@ -8,6 +10,8 @@ struct Program {
 
 impl Program {
     fn execute(&self, vx: f64, vy: f64) -> f64 {
+        vm_execute!();
+
         let mut vars: Vec<f64> = vec![0.0; self.instrs.len()];
         for instr in &self.instrs {
             vars[instr.out] = match instr.op {
