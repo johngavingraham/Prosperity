@@ -11,25 +11,6 @@ struct Program {
 impl Program {
     fn execute(&self, vx: f64, vy: f64) -> f64 {
         vm_execute!();
-
-        let mut vars: Vec<f64> = vec![0.0; self.instrs.len()];
-        for instr in &self.instrs {
-            vars[instr.out] = match instr.op {
-                Op::VarX => vx,
-                Op::VarY => vy,
-                Op::Add(a, b) => vars[a] + vars[b],
-                Op::Sub(a, b) => vars[a] - vars[b],
-                Op::Mul(a, b) => vars[a] * vars[b],
-                Op::Max(a, b) => vars[a].max(vars[b]),
-                Op::Min(a, b) => vars[a].min(vars[b]),
-                Op::Neg(n) => -vars[n],
-                Op::Sqrt(n) => vars[n].sqrt(),
-                Op::Square(n) => vars[n] * vars[n],
-                Op::Const(c) => c,
-            };
-        }
-
-        *vars.last().unwrap()
     }
 }
 
