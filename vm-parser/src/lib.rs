@@ -89,10 +89,10 @@ pub fn vm_execute(_: TokenStream) -> TokenStream {
         });
     }
 
-    statements.push(quote!(return #last_out));
+    statements.push(quote!(if #last_out > 0.0 { 0 } else { 255 }));
 
     quote!(
-        #(#statements)*
+        {#(#statements)*}
     )
     .into()
 }

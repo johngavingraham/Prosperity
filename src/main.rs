@@ -6,8 +6,8 @@ use vm_parser::vm_execute;
 struct Program {}
 
 impl Program {
-    fn execute(&self, vx: f64, vy: f64) -> f64 {
-        vm_execute!();
+    fn execute(&self, vx: f64, vy: f64) -> u8 {
+        vm_execute!()
     }
 }
 
@@ -23,8 +23,7 @@ fn main() {
             let vy = 1.0 - (y as f64 / 512.0);
 
             let out = program.execute(vx, vy);
-            let pix = if out > 0.0 { 0 } else { 255 };
-            *img.get_pixel_mut(x, y) = Luma([pix]);
+            *img.get_pixel_mut(x, y) = Luma([out]);
         }
     });
 
